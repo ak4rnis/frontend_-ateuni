@@ -18,6 +18,7 @@ const AddUsuario = ({ closeEvent }) => {
   const [biografia, setBiografia] = useState("");
   const [usuarios, setUsuarios] = useState([]);
   const [foto_perfil, setFotoPerfil] = useState(null);
+  const setRows = useAppStore((state) => state.setRows);
   const [avatarURL, setAvatarURL] = useState("");
 
   const dispatch = useDispatch();
@@ -36,6 +37,17 @@ const AddUsuario = ({ closeEvent }) => {
       console.error("Error fetching usuarios:", error);
     }
   }
+
+  const getUsers = async () => {
+    try {
+        const response = await dispatch(mostrarInstructores());
+        console.log(response); // Log the API response to the console
+        setRows(response.payload?.data?.instructores);
+      } catch (error) {
+        console.error("Error fetching usuarios:", error);
+        // Handle the error, show a message, or set an error state if needed
+      }
+}
 
   useEffect(() => {
     getUsuarios();
@@ -68,7 +80,7 @@ const AddUsuario = ({ closeEvent }) => {
       const imagenUrl = await getDownloadURL(storageRef);
       setAvatarURL(imagenUrl);
       dispatch(
-        crearInstructor({ usuario_id: usuario, biografia, foto_perfil_url: imagenUrl })
+        crearInstructor({ usuario_id: usuario, biografia: biografia, foto_perfil_url: imagenUrl })
       );
 
       closeEvent();
@@ -76,7 +88,7 @@ const AddUsuario = ({ closeEvent }) => {
         "El Instructor que ingresaste se ha registrado correctamente",
         "success"
       );
-      getUsuarios();
+      getUsers();
     }
   };
 
@@ -84,7 +96,7 @@ const AddUsuario = ({ closeEvent }) => {
     <>
       <Box sx={{ m: 2 }} />
       <Typography variant="h5" align="center">
-        Agregar Usuario
+        Agregar Instructor
       </Typography>
       <IconButton style={{ position: "absolute", top: "0", right: "0" }} onClick={closeEvent}>
         <Close />

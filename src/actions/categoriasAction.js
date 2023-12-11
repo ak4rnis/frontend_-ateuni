@@ -11,7 +11,7 @@ export const crearCategoria = createAsyncThunk(
                     "Content-Type": "application/json",
                 },
             };
-            const {data} = await axios.post(`usuarios/crear_usuario`, {nombre}, requestConfig);
+            const {data} = await axios.post(`categorias/crear_categoria`, {nombre}, requestConfig);
             return data;
         }catch(error){
             return rejectWithValue(error?.response?.data?.message || "Error desconocido");
@@ -24,7 +24,7 @@ export const verCategoriaPorId = createAsyncThunk(
     async(id, {rejectWithValue}) => {
         try{
             await delayedTimeout(1000);
-            return await axios.get(`categorias/ver_categoria/${id}`);
+            return await axios.get(`categorias/ver_categoria_id/${id}`);
         }catch(error){
             return rejectWithValue(error?.response?.data?.message || "Error desconocido")
         }

@@ -9,7 +9,7 @@ import {Avatar} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux";
 import { actualizarUsuario, mostrarUsuarios, verUsuarioPorId } from '../../../../actions/usuariosAction';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { verInstructorPorId } from '../../../../actions/instructoresAction';
+import { actualizarInstructorPorId, mostrarInstructores, verInstructorPorId } from '../../../../actions/instructoresAction';
 
 const EditUsuario = ({closeEvent, fit}) => {
     const [usuario, setUsuario] = useState("");
@@ -27,19 +27,21 @@ const EditUsuario = ({closeEvent, fit}) => {
     const enpCollectionProductosRef = collection(db, "perfiles");
     
     const getUsuarioPorId = async () => {
-        try{
-            const response = await dispatch(verInstructorPorId(fit.id));
-            console.log(response.payload.data?.instructor);
-            setUsuario(response?.payload?.data?.instructor?.id_usuario);
-            setBiografia(response?.payload?.data?.instructor?.biografia);
-            
-            setFotoPerfil(response?.payload?.data?.instructor?.foto_perfil);
-            
+  try {
+    const response = await dispatch(verInstructorPorId(fit.id));
+    console.log(response);
 
-        }catch(error){
-            console.error("Error fetching usuarios:", error);
-        }
+    setBiografia(response?.payload?.data?.instructores?.biografia);
+    setFotoPerfil(response?.payload?.data?.instructores?.foto_perfil_url);
+
+    // Guardar la URL actual solo si no hay una nueva foto proporcionada y hay una URL disponible
+    if (!foto_perfil && response?.payload?.data?.instructores?.foto_perfil_url) {
+      setAvatarURL((prev) => ({ ...prev, url: response.payload.data.instructores.foto_perfil_url }));
     }
+  } catch (error) {
+    console.error("Error fetching usuarios:", error);
+  }
+};
 
 
 
@@ -52,9 +54,9 @@ const EditUsuario = ({closeEvent, fit}) => {
     }, [dispatch])
     const getUsers = async () => {
         try {
-            const response = await dispatch(mostrarUsuarios());
+            const response = await dispatch(mostrarInstructores());
             console.log(response); // Log the API response to the console
-            setRows(response.payload.data.usuarios);
+            setRows(response.payload.data.instructores);
           } catch (error) {
             console.error("Error fetching usuarios:", error);
             // Handle the error, show a message, or set an error state if needed
@@ -75,24 +77,36 @@ const EditUsuario = ({closeEvent, fit}) => {
         setFotoPerfil(file);
       };
 
-    const createUser = async () => {
-        const storageRef = ref(storage, `instructores/${foto_perfil.name}`);
-        await uploadBytes(storageRef, foto_perfil);
-        const imagenUrl = await getDownloadURL(storageRef);
-        setAvatarURL(imagenUrl);
-        dispatch(
-            actualizarUsuario({usuario_id:fit.id, biografia, foto_perfil: imagenUrl })
+      const createUser = async () => {
+        try {
+          let imagenUrl = foto_perfil ? avatarURL.url : ""; // Usar la URL actual solo si no hay una nueva foto
+      
+          // Si se proporciona una nueva foto de perfil, cárgala y actualiza la URL
+          if (foto_perfil) {
+            const storageRef = ref(storage, `instructores/${foto_perfil.name}`);
+            await uploadBytes(storageRef, foto_perfil);
+            imagenUrl = await getDownloadURL(storageRef);
+          }
+      
+          // Actualiza la información del instructor, incluyendo la nueva URL de la imagen
+          dispatch(
+            actualizarInstructorPorId({ id: fit.id, biografia: biografia, foto_perfil_url: imagenUrl })
           );
-       
-        getUsers();
-        closeEvent();
-        Swal.fire("Actualizando!", "Los datos del Usuario han sido actualizado.", "success"); 
-    }
+      
+          // Vuelve a obtener la lista actualizada de instructores
+          getUsers();
+          closeEvent();
+          Swal.fire("Actualizando!", "Los datos del Usuario han sido actualizado.", "success");
+        } catch (error) {
+          console.error("Error al actualizar usuario:", error);
+          // Manejar el error según sea necesario
+        }
+      };
     return(
         <>
             <Box sx={{m: 2}} />
             <Typography variant="h5" align='center'>
-                Editar Usuario
+                Editar Instructor
             </Typography>
             <IconButton style={{position: "absolute", top: "0", right: "0"}} onClick={closeEvent}>
                 <Close />
@@ -113,24 +127,7 @@ const EditUsuario = ({closeEvent, fit}) => {
             />
           </Grid>
           
-          <Grid item xs={6}>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleAvatarChange}
-              style={{ display: "none" }}
-              id="upload-image-input"
-            />
-            <label htmlFor="upload-image-input">
-              <Button
-                variant="contained"
-                component="span"
-                startIcon={<AccountCircle />}
-              >
-                Subir Imagen
-              </Button>
-            </label>
-          </Grid>
+          
           <Grid item xs={6}>
             <input
               type="file"

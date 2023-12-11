@@ -4,14 +4,14 @@ import { delayedTimeout } from "../utilities/delayedTimeout";
 
 export const crearInstructor = createAsyncThunk(
     "instructores/crearInstructor",
-    async({usuario_id, biografia, foto_perfil}, {rejectWithValue}) => {
+    async({usuario_id, biografia, foto_perfil_url}, {rejectWithValue}) => {
         try{
             const requestConfig = {
                 headers: {
                     "Content-Type": "application/json",
                 },
             };
-            const {data} = await axios.post(`instructores/crear_instructor`, {usuario_id, biografia, foto_perfil}, requestConfig);
+            const {data} = await axios.post(`instructores/crear_instructor`, {usuario_id, biografia, foto_perfil_url}, requestConfig);
             return data;
         }catch(error)
         {   
@@ -35,17 +35,18 @@ export const verInstructorPorId = createAsyncThunk(
 
 export const actualizarInstructorPorId = createAsyncThunk(
     "instructores/actualizarInstructorPorId",
-    async({usuario_id, biografia, foto_perfil}, {rejectWithValue}) => {
+    async({id, biografia, foto_perfil_url}, {rejectWithValue}) => {
         try{
             const requestConfig = {
                 headers: {
                     "Content-Type": "application/json",
                 }
             }
-            const {data} = await axios.put(`instructores/actualizar_instructor/${usuario_id}`, {biografia, foto_perfil}, requestConfig);
+            const {data} = await axios.put(`instructores/actualizar_instructor/${id}`, {biografia, foto_perfil_url}, requestConfig);
             return data;
         }catch(error)
         {
+            console.log(error);
             return rejectWithValue(error?.response?.data?.message || "Error desconocido")
         }
     }

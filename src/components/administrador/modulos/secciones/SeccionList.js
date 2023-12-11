@@ -18,11 +18,11 @@ import Swal from "sweetalert2";
 import { useAppStore } from '../../../../appStore';
 import {Avatar} from "@mui/material";
 
-import AddUsuario from './AddInstructor';
-import EditUsuario from './EditInstructor';
+import AddUsuario from './AddSeccion';
+import EditUsuario from './EditSeccion';
 
 import { mostrarUsuarios } from '../../../../actions/usuariosAction';
-import { mostrarInstructores } from '../../../../actions/instructoresAction';
+import { mostrarSecciones } from '../../../../actions/seccionesAction';
 
 
 
@@ -45,9 +45,9 @@ const style = {
     p: 4
   };
 
-export default function InstructorList(){
+export default function SeccionList(){
     const dispatch = useDispatch();
-    
+    const {usuarios} = useSelector((state) => state.usuarios);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [formid, setFormid] = useState("");
@@ -71,8 +71,8 @@ export default function InstructorList(){
     };
     const deleteUser = (id) => {
         Swal.fire({
-          title: "Eliminar Instructor:",
-          text: "Estas seguro que quieres eliminar el instructor",
+          title: "Eliminar Usuario:",
+          text: "Estas seguro que quieres eliminar el usuario",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
@@ -92,13 +92,14 @@ export default function InstructorList(){
       
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [dispatch]);
+      const uniqueRows = Array.from(new Set(rows.map((row) => row.curso_titulo)));
     
       const getUsers = async () => {
         
             try {
-              const response = await dispatch(mostrarInstructores());
+              const response = await dispatch(mostrarSecciones());
               console.log(response); // Log the API response to the console
-              setRows(response.payload?.data?.instructores);
+              setRows(response.payload.data.seccion);
             } catch (error) {
               console.error("Error fetching usuarios:", error);
               // Handle the error, show a message, or set an error state if needed
@@ -121,10 +122,10 @@ export default function InstructorList(){
         }
       }
     
-      const editData = (id, imagen) => {
+      const editData = (id) => {
         const data = {
           id: id,
-          imagen: imagen
+         
 
            
           
@@ -156,7 +157,7 @@ export default function InstructorList(){
             
         <Paper sx={{ width: '98%', overflow: 'hidden', padding: "12px" }}>
         <Typography gutterBottom variant='h5' component="div" sx={{padding: "20px"}}>
-            Los Instructores
+            Las Secciones
         </Typography>
         <Divider />
         <Box height={10} />
@@ -169,9 +170,10 @@ export default function InstructorList(){
             onChange={(e, v) => filterData(v)}
             getOptionLabel={(rows) => rows.nombre || ""}
             renderInput={(params) => (
-              <TextField {...params} size="small" label="Buscar Instructor" />
+              <TextField {...params} size="small" label="Buscar Sección" />
             )}
           />
+          
           <Typography variant="h6" component="div" sx={{flexGrow: 1}}></Typography>
           <Button variant='contained' onClick={handleOpen} endIcon={<AddCircleIcon />}>
             Agregar
@@ -186,19 +188,19 @@ export default function InstructorList(){
             align='left'
             style={{minHeight: "100px"}}
           >
-            Usuario
+            Título
           </TableCell>
           <TableCell
             align='left'
             style={{minHeight: "100px"}}
           >
-            Biografia
+            Duración
           </TableCell>
           <TableCell
             align='left'
             style={{minHeight: "100px"}}
           >
-            Foto Del Instructor
+            Curso
           </TableCell>
         
           
@@ -213,27 +215,27 @@ export default function InstructorList(){
       </TableHead>
       <TableBody>
         {Array.isArray(rows) && rows.length > 0 ? (
-          rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          rows.slice(page  * rowsPerPage, page * rowsPerPage + rowsPerPage)
           .map((row) => {
             return (
               <TableRow hover role="checkbox" tabIndex={-1}>
                 <TableCell  align="left">
-                  {row.nombre}
+                  {row.titulo}
                 </TableCell>
                 <TableCell  align="left">
-                  {row.biografia}
+                  {row.duracion}
                 </TableCell>
                 <TableCell  align="left">
-                <Avatar src={row.foto_perfil_url} sx={{width: "50px", height: "50px"}} />
+                  {row.curso_titulo}
                 </TableCell>
                 
                 
                 <TableCell align='left'>
                   <Stack spacing={2} direction="row">
                     <EditIcon style={{fontSize: "20px", color: "blue", cursor: "pointer"}} className='cursor-pointer' onClick={() => {
-                      editData(row.usuario_id, row.foto_perfil_url)
+                      editData(row.id)
                     }} />
-                   
+                    
                   </Stack>
                 </TableCell>
               </TableRow>
@@ -241,7 +243,7 @@ export default function InstructorList(){
           })) : (
             <TableRow>
     <TableCell colSpan={5} align="center">
-      No hay instructores para mostrar.
+      No hay usuarios para mostrar.
     </TableCell>
   </TableRow>
           )}

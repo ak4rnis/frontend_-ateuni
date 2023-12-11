@@ -18,11 +18,12 @@ import Swal from "sweetalert2";
 import { useAppStore } from '../../../../appStore';
 import {Avatar} from "@mui/material";
 
-import AddUsuario from './AddInstructor';
-import EditUsuario from './EditInstructor';
+import AddUsuario from './AddCategoria';
+import EditUsuario from './EditCategoria';
 
 import { mostrarUsuarios } from '../../../../actions/usuariosAction';
 import { mostrarInstructores } from '../../../../actions/instructoresAction';
+import { mostrarCategorias } from '../../../../actions/categoriasAction';
 
 
 
@@ -45,7 +46,7 @@ const style = {
     p: 4
   };
 
-export default function InstructorList(){
+export default function CategoriaList(){
     const dispatch = useDispatch();
     
     const [page, setPage] = useState(0);
@@ -96,9 +97,9 @@ export default function InstructorList(){
       const getUsers = async () => {
         
             try {
-              const response = await dispatch(mostrarInstructores());
+              const response = await dispatch(mostrarCategorias());
               console.log(response); // Log the API response to the console
-              setRows(response.payload?.data?.instructores);
+              setRows(response.payload?.data?.categoria);
             } catch (error) {
               console.error("Error fetching usuarios:", error);
               // Handle the error, show a message, or set an error state if needed
@@ -124,7 +125,7 @@ export default function InstructorList(){
       const editData = (id, imagen) => {
         const data = {
           id: id,
-          imagen: imagen
+          
 
            
           
@@ -156,7 +157,7 @@ export default function InstructorList(){
             
         <Paper sx={{ width: '98%', overflow: 'hidden', padding: "12px" }}>
         <Typography gutterBottom variant='h5' component="div" sx={{padding: "20px"}}>
-            Los Instructores
+            Los Categorías
         </Typography>
         <Divider />
         <Box height={10} />
@@ -169,7 +170,7 @@ export default function InstructorList(){
             onChange={(e, v) => filterData(v)}
             getOptionLabel={(rows) => rows.nombre || ""}
             renderInput={(params) => (
-              <TextField {...params} size="small" label="Buscar Instructor" />
+              <TextField {...params} size="small" label="Buscar Categoría" />
             )}
           />
           <Typography variant="h6" component="div" sx={{flexGrow: 1}}></Typography>
@@ -186,20 +187,9 @@ export default function InstructorList(){
             align='left'
             style={{minHeight: "100px"}}
           >
-            Usuario
+            Nombre
           </TableCell>
-          <TableCell
-            align='left'
-            style={{minHeight: "100px"}}
-          >
-            Biografia
-          </TableCell>
-          <TableCell
-            align='left'
-            style={{minHeight: "100px"}}
-          >
-            Foto Del Instructor
-          </TableCell>
+          
         
           
           
@@ -220,18 +210,14 @@ export default function InstructorList(){
                 <TableCell  align="left">
                   {row.nombre}
                 </TableCell>
-                <TableCell  align="left">
-                  {row.biografia}
-                </TableCell>
-                <TableCell  align="left">
-                <Avatar src={row.foto_perfil_url} sx={{width: "50px", height: "50px"}} />
-                </TableCell>
+               
+                
                 
                 
                 <TableCell align='left'>
                   <Stack spacing={2} direction="row">
                     <EditIcon style={{fontSize: "20px", color: "blue", cursor: "pointer"}} className='cursor-pointer' onClick={() => {
-                      editData(row.usuario_id, row.foto_perfil_url)
+                      editData(row.id)
                     }} />
                    
                   </Stack>
@@ -241,7 +227,7 @@ export default function InstructorList(){
           })) : (
             <TableRow>
     <TableCell colSpan={5} align="center">
-      No hay instructores para mostrar.
+      No hay categorias para mostrar.
     </TableCell>
   </TableRow>
           )}

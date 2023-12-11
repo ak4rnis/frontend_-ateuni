@@ -168,14 +168,14 @@ export default function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" elevation={0} sx={{backgroundColor: "#042c54", color: "#2f2f2f"}}>
+      <AppBar position="fixed" elevation={0} sx={{backgroundColor: "#CEF786", color: "#2f2f2f"}}>
         <Toolbar>
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            sx={{ mr: 2, color: '#ffb71b' }}
+            sx={{ mr: 2, color: '#F3350B' }}
             onClick={() => updateOpen(!dopen)}
           >
             <MenuIcon />
@@ -184,7 +184,7 @@ export default function Navbar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' }, color: '#ffb71b' }}
+            sx={{ display: { xs: 'none', sm: 'block' }, color: '#F3350B' }}
           >
             Mate 
           </Typography>
@@ -192,7 +192,7 @@ export default function Navbar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' }, color: '#ffffff',  marginLeft: 1 }}
+            sx={{ display: { xs: 'none', sm: 'block' }, color: '#F7C005 ',  marginLeft: 1 }}
           >
             Uni
           </Typography>
@@ -202,7 +202,7 @@ export default function Navbar() {
             variant="inherit"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' }, color: '#ffffff', marginLeft: 4 }}
+            sx={{ display: { xs: 'none', sm: 'block' }, color: '#F7C005 ', marginLeft: 4 }}
           >
             Administrador
           </Typography>
@@ -213,7 +213,7 @@ export default function Navbar() {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             
-          <Button variant="outlined" onClick={() => {navigate("/")}}  sx={{color: 'white', borderColor: 'white', fontSize: '15px'}}>Salir de modo administrador</Button>
+          <Button variant="outlined" onClick={() => {navigate("/")}}  sx={{color: '#F3350B', borderColor: '#F3350B', fontSize: '15px'}}>Salir de modo administrador</Button>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton

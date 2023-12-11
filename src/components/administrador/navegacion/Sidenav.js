@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
+import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -113,7 +114,7 @@ export default function SideNav() {
   
 
   return (
-    <Box sx={{ display: 'flex', backgroundColor: "#ffffff" }}>
+    <Box sx={{ display: 'flex', backgroundColor: "#ffffff", height: "500px" }} >
       <CssBaseline />
       <Box height={30} />
       <Drawer variant="permanent" open={open} sx={{backgroundColor: '#ffffff'}}>
@@ -124,8 +125,9 @@ export default function SideNav() {
     </DrawerHeader>
         
         <Divider />
-        <List sx={{bgcolor: '#ffffff'}} >
-        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/adminglobal")}}>
+        <List sx={{bgcolor: '#F3350B', height: "100%"}} >
+        
+        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/administrador/cursos")}}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -138,205 +140,16 @@ export default function SideNav() {
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
-                    color: '#012c56'
-                  }}
-                >
-                  <HomeIcon />
-                </ListItemIcon>
-                <ListItemText primary="Inicio" sx={{ opacity: open ? 1 : 0, color: '#012c56' }} />
-              </ListItemButton>
-        </ListItem>
-       
-        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/adminglobal/products")}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color: '#012c56'
-                  }}
-                >
-                  <InventoryIcon />
-                </ListItemIcon>
-                <ListItemText primary="Productos" sx={{ opacity: open ? 1 : 0, color: '#012c56' }} />
-              </ListItemButton>
-        </ListItem>
-        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/adminglobal/areas")}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color: '#012c56'
-                  }}
-                >
-                  <HdrAutoIcon />
-                </ListItemIcon>
-                <ListItemText primary="Areas" sx={{ opacity: open ? 1 : 0 , color: '#012c56'}} />
-              </ListItemButton>
-        </ListItem>
-        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/adminglobal/cantidades")}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color: '#012c56'
-                  }}
-                >
-                  <StoreIcon />
-                </ListItemIcon>
-                <ListItemText primary="Cantidades" sx={{ opacity: open ? 1 : 0, color: '#012c56' }} />
-              </ListItemButton>
-        </ListItem>
-        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/adminglobal/clientes")}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color: '#012c56'
-                  }}
-                >
-                  <GroupIcon />
-                </ListItemIcon>
-                <ListItemText primary="Clientes" sx={{ opacity: open ? 1 : 0 , color: '#012c56'}} />
-              </ListItemButton>
-        </ListItem>
-        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/adminglobal/escuelas")}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color: '#012c56'
-                  }}
-                >
-                  <ReduceCapacityIcon />
-                </ListItemIcon>
-                <ListItemText primary="Escuelas" sx={{ opacity: open ? 1 : 0, color: '#012c56' }} />
-              </ListItemButton>
-        </ListItem>
-        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/adminglobal/estadosolicitudes")}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color: '#012c56'
-                  }}
-                >
-                  <ScaleIcon />
-                </ListItemIcon>
-                <ListItemText primary="Estado de Solicitudes" sx={{ opacity: open ? 1 : 0 , color: '#012c56'}} />
-              </ListItemButton>
-        </ListItem>
-        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/adminglobal/fuerastocks")}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color: '#012c56'
-                  }}
-                >
-                  <InfoIcon />
-                </ListItemIcon>
-                <ListItemText primary="Fuera de Stock" sx={{ opacity: open ? 1 : 0, color: '#012c56' }} />
-              </ListItemButton>
-        </ListItem>
-        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/adminglobal/lugares")}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color: '#012c56'
-                  }}
-                >
-                  <HomeWorkIcon />
-                </ListItemIcon>
-                <ListItemText primary="Lugares" sx={{ opacity: open ? 1 : 0, color: '#012c56' }} />
-              </ListItemButton>
-        </ListItem>
-        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/adminglobal/perfiles")}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color: '#012c56'
+                    color: '#CEF786'
                   }}
                 >
                   <CoPresentIcon />
                 </ListItemIcon>
-                <ListItemText primary="Perfiles" sx={{ opacity: open ? 1 : 0 , color: '#012c56'}} />
+                <ListItemText primary="Cursos" sx={{ opacity: open ? 1 : 0 , color: '#CEF786'}} />
               </ListItemButton>
         </ListItem>
-        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/adminglobal/sapstocks")}}>
+        
+        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/administrador/instructores")}}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -349,57 +162,15 @@ export default function SideNav() {
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
-                    color: '#012c56'
-                  }}
-                >
-                  <AssignmentIcon />
-                </ListItemIcon>
-                <ListItemText primary="Sap Stocks" sx={{ opacity: open ? 1 : 0, color: '#012c56' }} />
-              </ListItemButton>
-        </ListItem>
-        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/adminglobal/solicitudes")}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color: '#012c56'
-                  }}
-                >
-                  <AssignmentTurnedInIcon />
-                </ListItemIcon>
-                <ListItemText primary="Solicitudes" sx={{ opacity: open ? 1 : 0, color: '#012c56' }} />
-              </ListItemButton>
-        </ListItem>
-        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/adminglobal/solicitudesproductos")}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color: '#012c56'
+                    color: '#CEF786'
                   }}
                 >
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary="Solicitudes de Productos" sx={{ opacity: open ? 1 : 0, color: '#012c56' }} />
+                <ListItemText primary="Instructores" sx={{ opacity: open ? 1 : 0, color: '#CEF786' }} />
               </ListItemButton>
                 </ListItem>
-        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/adminglobal/stocks")}}>
+        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/administrador/categorias")}}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -412,15 +183,15 @@ export default function SideNav() {
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
-                    color: '#012c56'
+                    color: '#CEF786'
                   }}
                 >
                   <KitchenIcon />
                 </ListItemIcon>
-                <ListItemText primary="Stocks" sx={{ opacity: open ? 1 : 0 , color: '#012c56'}} />
+                <ListItemText primary="Categorias" sx={{ opacity: open ? 1 : 0 , color: '#CEF786'}} />
               </ListItemButton>
         </ListItem>
-        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/adminglobal/usuarios")}}>
+        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/administrador/usuarios")}}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -433,12 +204,33 @@ export default function SideNav() {
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
-                    color: '#012c56'
+                    color: '#CEF786'
                   }}
                 >
                   <PeopleAltIcon />
                 </ListItemIcon>
-                <ListItemText primary="Usuarios" sx={{ opacity: open ? 1 : 0 , color: '#012c56'}} />
+                <ListItemText primary="Usuarios" sx={{ opacity: open ? 1 : 0 , color: '#CEF786'}} />
+              </ListItemButton>
+        </ListItem>
+        <ListItem  disablePadding sx={{ display: 'block' }} onClick={() => {navigate("/administrador/secciones")}}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                    color: '#CEF786'
+                  }}
+                >
+                  <AutoAwesomeMotionIcon />
+                </ListItemIcon>
+                <ListItemText primary="Secciones" sx={{ opacity: open ? 1 : 0 , color: '#CEF786'}} />
               </ListItemButton>
         </ListItem>
         

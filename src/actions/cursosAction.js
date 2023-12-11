@@ -15,6 +15,7 @@ export const crearCurso = createAsyncThunk(
             return data;
         }catch(error)
         {
+            console.log(error);
             return rejectWithValue(error?.response?.data?.message || "Error desconocido");
         }
     }
